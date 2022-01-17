@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>easyData - open source & free solutions</title>
+    <!-- Icon -->
+    <link rel="icon" href="https://easy-data.mdbgo.io/img/favicon/favicon-32x32.png" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB UI KIT -->
+    <link rel="stylesheet" href="css/mdb.min.css" />
+    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+    <!-- Main Style Css -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Custom styles -->
+    <style></style>
+</head>
+
+<body>
+    <!--Main Navigation-->
+    <div class="page-content">
+        <div class="form-v4-content">
+            <div class="form-left">
+                <h2>INFORMATION</h2>
+                <p class="text-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et molestie ac feugiat sed. Diam volutpat commodo.</p>
+                <p class="text-2"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et molestie ac feugiat sed. Diam volutpat commodo.</span></p>
+            </div>
+            <form method="post" autocomplete="off" name="google-sheet" class="form-detail">
+                <h2>Data Form</h2>
+                <div class="form-group">
+                    <div class="form-row form-row-1">
+                        <label for="Expected Audience">Expected Audience</label>
+                        <input type="text" name="Expected Audience" id="Expected Audience" class="input-text">
+                    </div>
+                    <div class="form-row form-row-1">
+                        <label for="Number of Days">Number of Days</label>
+                        <input type="text" name="Number of Days" id="Number of Days" class="input-text">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="Expected Exhibitors">Expected Exhibitors</label>
+                    <input type="text" name="Expected Exhibitors" id="Expected Exhibitors" class="input-text" required>
+                </div>
+                <div class="form-row">
+                    <label for="Number of conferencing Tracks">Number of conferencing Tracks</label>
+                    <input type="text" name="Number of conferencing Tracks" id="Number of conferencing Tracks" class="input-text" required>
+                </div>
+                <div class="form-row">
+                    <label for="Your Name">Your Name</label>
+                    <input type="text" name="Your Name" id="Your Name" class="input-text" required>
+                </div>
+                <div class="form-row">
+                    <label for="Contact Number">Contact Number</label>
+                    <input type="text" name="Contact Number" id="Contact Number" class="input-text" required>
+                </div>
+                <div class="form-row-last">
+                    <input type="submit" name="submit" id="submit" class="register" value="Submit">
+                </div>
+                <div class="form-row-last">
+                    <input type="button" name="getresult" id="getresult" class="register" value="Get Results">
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    <main>
+        <div class="container">
+            <!-- Table -->
+            <table class="table" style="display: none;">
+                <thead id="table-head"></thead>
+                <tbody id="table-body"></tbody>
+            </table>
+            <!-- Table -->
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbx4d--7JdiYlhZzB56OjEiEYQQZPLzFyCgQtRKk5YRG8EKZzSQUHJc_6GF171acycMs-A/exec'
+        const form = document.forms['google-sheet']
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            fetch(scriptURL, {
+                    method: 'POST',
+                    body: new FormData(form)
+                })
+                .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon... "))
+                .catch(error => console.error('Error!', error.message))
+        })
+    </script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
+
+    <!--Main layout-->
+
+
+    <!--Main layout-->
+
+    <!--Footer-->
+    <footer></footer>
+    <!--Footer-->
+</body>
+
+<!-- MDB ESSENTIAL -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<!-- Google API -->
+<script src="https://apis.google.com/js/api.js"></script>
+<!-- easyData -->
+<script type="text/javascript" src="js/easyData-google-sheets.js"></script>
+
+<!-- easyData - Creating table -->
+<script>
+    {
+        {
+            // Your API KEY
+            const API_KEY = "AIzaSyDRH8Uc6Ga7yCvZ28qK08Pe0jwEjlfmO-8";
+
+            function displayResult2(response) {
+                let tableHead = "";
+                let tableBody = "";
+
+                response.result.values.forEach((row, index) => {
+                    if (index === 0) {
+                        tableHead += "<tr>";
+                        row.forEach((val) => (tableHead += "<th>" + val + "</th>"));
+                        tableHead += "</tr>";
+                    } else {
+                        tableBody += "<tr>";
+                        row.forEach((val) => (tableBody += "<td>" + val + "</td>"));
+                        tableBody += "</tr>";
+                    }
+                });
+
+                document.getElementById("table-head").innerHTML = tableHead;
+                document.getElementById("table-body").innerHTML = tableBody;
+            }
+
+            function loadData() {
+                // Spreadsheet ID
+                const spreadsheetId = "1Yen5EEG1ykQ6KpghVETbrIYmmnW71PPOx70lrVC_GhU";
+                const range = "A:Z";
+                getPublicValues({
+                    spreadsheetId,
+                    range
+                }, displayResult2);
+            }
+
+            window.addEventListener("load", (e) => {
+                initOAuthClient({
+                    apiKey: API_KEY
+                });
+            });
+
+            $("#getresult").on("click", function() {
+                loadData();
+                setTimeout(function() {
+                    var cost = $("#table-body tr:last").find("td:last").text();
+                }, 3000);
+
+            });
+
+
+
+        }
+    }
+</script>
+
+</html>
+<!-- https://docs.google.com/spreadsheets/d/e/2PACX-1vTOrk-iweSWeM7y8Nfn-CKx95YhInA0QTqrp7MeymJez_zsZ3ARmZFYap9l31JoG_v5iI61iJd4XDlW/pubhtml-->
